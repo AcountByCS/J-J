@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>J&J</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <!-- For export table -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><img src="assets/ibm.png"></div>
+        <div class="nav nav-tabs " id="nav-tab" role="tablist">
+            <a class="nav-item nav-link  " id="nav-risk-tab"  href="index.html" 
+                aria-controls="nav-risk" aria-selected="true">Document Traceability</a>
+            <a class="nav-item nav-link " id="nav-risk1-tab"  href="riskextraction.html" 
+                aria-controls="nav-risk1" aria-selected="false">Risk Extraction</a>
+            <a class="nav-item nav-link active" id="nav-risk2-tab"  href="riskvalidation.html" 
+                aria-controls="nav-risk2" aria-selected="false">Risk Validation</a>
+
+        </div>
+
+        <div class="navbar-brand"><img class="img-logo" src="assets/logo.png"></div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <section class="tab-pane fade show active" id="nav-risk2" role="tabpanel" aria-labelledby="nav-risk2-tab">
+            <div class="main">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="riskValidationRadio">Select Doc Type</label> <br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="riskValidationRadio"
+                                            id="inlineRadioDCRM" value="DCRM">
+                                        <label class="form-check-label" for="inlineRadioDCRM">DCRM</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="riskValidationRadio"
+                                            id="inlineRadioPRM" value="PRM">
+                                        <label class="form-check-label" for="inlineRadioPRM">PRM</label>
+                                    </div>
+                                    <hr />
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Document No.</label>
+                                <input type="text" id="exampleFormControlInput1"class="form-control" id="exampleFormControlInput1" >
+                           
+                            </div>
+                            <hr />
+
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card" style="width: 60rem;min-height: 87vh;">
+                    <div class="card-body">
+                        
+                        <div class="toolbar">
+                            <span id="total"></span>
+                            <button type="submit" class="btn  btn-exl" id="export">Download<img class="icon-export"
+                                    src="assets/export_icon.png">
+                            </button>
+                        </div>
+                        <table class="table table-sm table-striped table-hover" id="table" data-toggle="table"
+                            data-force-export="true" data-export-types="['excel']" data-height="460"
+                            data-pagination="true"  data-export-data-type="all" data-pagination-h-align="right" data-pagination-detail-h-align="left"
+                            data-paginationParts="pageInfo">
+                            <thead>
+                                <tr  >
+                                    <th data-field="dcprmName">DCRM/ PRM<br> # / Name</th>
+                                    <th data-field="docCategory">Document <br> Category</th>
+                                    <th data-field="entry">Entry #</th>
+                                    <th data-field="rcaSplit">Risk Control <br> Action split</th>
+                                    <th data-field="referenceSplit">Reference <br> Split</th>
+                                    <th data-field="mapDoc">Mapping STG <br> IFU <br> Document #</th>
+                                    <th data-field="mapEvidence">Mapping <br> Evidence <br> in STG IFU</th>
+                                    <th data-field="confidenceLevelEvidence">Confidence <br> Level <br> for mapping <br> evidence</th>
+                                </tr>
+                                <tr></tr>
+                            </thead>
+                          
+                        </table>
+                        <script>
+                            var $table = $('#table')
+
+                            $(function () {
+                                var data = [
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":"hhds"
+
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":"hhds"
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    },
+                                    {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    }, {
+                                        "dcprmName": 1,
+                                        "docCategory": "Item 1",
+                                        "entry": "$0",
+                                        "rcaSplit":"abc",
+                                        "referenceSplit":"abf",
+                                        "mapDoc":"",
+                                        "mapEvidence":"",
+                                        "confidenceLevelEvidence":""
+                                    }
+                                ]
+                                $table.bootstrapTable({ data: data })
+                            })
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+     </section>
+    </div>
+
+    <!-- Bootstrap  -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
+    <script
+        src="https://unpkg.com/bootstrap-table@1.18.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+    <script src="main.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+    <!-- Auto complete dropDown -->
+    <script defer
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+</body>
+
+</html>
